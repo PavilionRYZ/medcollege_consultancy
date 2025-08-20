@@ -19,7 +19,7 @@ const Navbar = () => {
           <div className="flex items-center">
             <div className="flex-shrink-0 flex items-center">
               <Stethoscope className="h-8 w-8 text-blue-600 mr-2" />
-              <span className="text-xl font-bold text-gray-900">medcollege consaltancy</span>
+              <span className="text-xl font-bold text-gray-900">Medcollege Consaltancy</span>
             </div>
           </div>
           
