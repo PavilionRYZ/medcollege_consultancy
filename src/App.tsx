@@ -1,13 +1,13 @@
-import React from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Courses from './components/Courses';
-import Eligibility from './components/Eligibility';
-import AdmissionEnquiry from './components/AdmissionEnquiry';
-import FAQ from './components/FAQ';
-import About from './components/About';
-import Footer from './components/Footer';
-
+import React from "react";
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import Courses from "./components/Courses";
+import Eligibility from "./components/Eligibility";
+import AdmissionEnquiry from "./components/AdmissionEnquiry";
+import FAQ from "./components/FAQ";
+import About from "./components/About";
+import Footer from "./components/Footer";
+import { Toaster } from "react-hot-toast";
 function App() {
   return (
     <div className="min-h-screen">
@@ -19,6 +19,7 @@ function App() {
       <FAQ />
       <About />
       <Footer />
+      <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
     </div>
   );
 }

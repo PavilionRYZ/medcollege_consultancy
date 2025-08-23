@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Phone, Mail, MapPin, Clock, Send } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Send, Loader2 } from "lucide-react";
 import emailjs from "@emailjs/browser";
+import toast from "react-hot-toast";
 const AdmissionEnquiry = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -8,6 +9,8 @@ const AdmissionEnquiry = () => {
     phone: "",
     message: "",
   });
+
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -20,6 +23,7 @@ const AdmissionEnquiry = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
 
     emailjs
       .send(
@@ -35,12 +39,15 @@ const AdmissionEnquiry = () => {
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       )
       .then(() => {
-        alert("Thank you! Your enquiry has been sent.");
+        toast.success("✅ Your enquiry has been sent!");
         setFormData({ name: "", email: "", phone: "", message: "" });
       })
       .catch((error) => {
         console.error("Email error:", error);
-        alert("Oops! Something went wrong. Please try again.");
+        toast.error("❌ Oops! Something went wrong. Please try again.");
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -201,10 +208,26 @@ const AdmissionEnquiry = () => {
 
               <button
                 type="submit"
-                className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center"
+                disabled={loading}
+                className={`w-full py-3 px-6 rounded-lg font-semibold transition-colors shadow-lg flex items-center justify-center
+                 ${
+                   loading
+                     ? "bg-gray-400 cursor-not-allowed"
+                     : "bg-blue-600 hover:bg-blue-700 text-white hover:shadow-xl transform hover:-translate-y-0.5"
+                 }
+                `}
               >
-                <Send className="h-5 w-5 mr-2" />
-                Send Enquiry
+                {loading ? (
+                  <>
+                    <Loader2 className="h-5 w-5 mr-2 animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send className="h-5 w-5 mr-2" />
+                    Send Enquiry
+                  </>
+                )}
               </button>
             </form>
           </div>
